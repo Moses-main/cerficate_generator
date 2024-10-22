@@ -1,25 +1,81 @@
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+import Certificate from "./components/Certificate";
+import "./App.css";
 
-function App() {
+import React, { useState } from "react";
+import { TextField, Button, Container, Typography } from "@mui/material";
+
+const App = () => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [certId, setCertId] = useState("");
+  const [date, setDate] = useState("");
+  const [showCertificate, setShowCertificate] = useState(false);
+
+  const handleGenereateCertificate = () => {
+    if (name && description && certId && date) {
+      setShowCertificate(true);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <Container maxWidth="sm">
+      <Typography variant="h4" gutterBottom align="center">
+        Certificate Generator
+      </Typography>
+      <TextField
+        label="Name"
+        fullWidth
+        margin="normal"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
 
+      <TextField
+        label="Description"
+        fullWidth
+        margin="normal"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+
+      <TextField
+        label="Certificate ID"
+        fullWidth
+        margin="normal"
+        value={certId}
+        onChange={(e) => setCertId(e.target.value)}
+      />
+
+      <TextField
+        label="Date"
+        fullWidth
+        margin="normal"
+        value={date}
+        onChange={(e) => {
+          setDate(e.target.value);
+        }}
+      />
+
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        onClick={handleGenereateCertificate}
+        style={{ marginTop: "20px" }}
+      >
+        Generate Certificate
+      </Button>
+
+      {showCertificate && (
+        <Certificate
+          name={name}
+          description={description}
+          certId={certId}
+          date={date}
+        />
+      )}
+    </Container>
+  );
+};
 export default App;
