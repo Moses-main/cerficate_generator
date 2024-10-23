@@ -7,13 +7,12 @@ import { TextField, Button, Container, Typography } from "@mui/material";
 
 const App = () => {
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [certId, setCertId] = useState("");
   const [date, setDate] = useState("");
   const [showCertificate, setShowCertificate] = useState(false);
 
   const handleGenereateCertificate = () => {
-    if (name && description && certId && date) {
+    if (name && certId && date) {
       setShowCertificate(true);
     }
   };
@@ -31,13 +30,7 @@ const App = () => {
         onChange={(e) => setName(e.target.value)}
       />
 
-      <TextField
-        label="Description"
-        fullWidth
-        margin="normal"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
+
 
       <TextField
         label="Certificate ID"
@@ -70,7 +63,6 @@ const App = () => {
       {showCertificate && (
         <Certificate
           name={name}
-          description={description}
           certId={certId}
           date={date}
         />
