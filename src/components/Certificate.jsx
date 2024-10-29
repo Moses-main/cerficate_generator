@@ -4,7 +4,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "../App.css";
 
-const Certificate = ({ name, certId, date }) => {
+const Certificate = ({ name, certId, date, description }) => {
   const componentRef = useRef();
 
   // Function to handle printing or saving as PDF
@@ -136,7 +136,7 @@ const Certificate = ({ name, certId, date }) => {
           variant="h6"
           style={{ textAlign: "center", color: "orangered" }}
         >
-          ___________________________________________
+          _____________________________________
         </Typography>
 
         <Typography
@@ -146,11 +146,13 @@ const Certificate = ({ name, certId, date }) => {
             fontSize: "16px",
           }}
         >
-          successfully completed the 4-Week AI Internship Program at Tublian,
+          {description}
+
+          {/* successfully completed the 4-Week AI Internship Program at Tublian,
           demostrating exceptional dedication and commendable work ethic
           throughout the internship. The contributions made including the
           development of an advanced chatbot, have added significant value to
-          the AI community.
+          the AI community. */}
         </Typography>
         <div>
           <Typography

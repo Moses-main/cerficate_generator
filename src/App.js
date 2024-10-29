@@ -9,6 +9,7 @@ const App = () => {
   const [name, setName] = useState("");
   const [certId, setCertId] = useState("");
   const [date, setDate] = useState("");
+  const [description, setDescription] = useState("");
   const [showCertificate, setShowCertificate] = useState(false);
 
   const handleGenereateCertificate = () => {
@@ -29,9 +30,6 @@ const App = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-
-
-
       <TextField
         label="Certificate ID"
         fullWidth
@@ -50,6 +48,24 @@ const App = () => {
         }}
       />
 
+
+{/*  */}
+
+
+      <TextField
+      label="Description"
+      fullWidth
+      width="100%"
+      height="200%"
+        multiline
+        rows={4}
+        // variant="outline"
+      margin="normal"
+      value={description}
+      onChange={(e) =>{
+        setDescription(e.target.value)
+      }}/>
+
       <Button
         variant="contained"
         color="primary"
@@ -65,6 +81,7 @@ const App = () => {
           name={name}
           certId={certId}
           date={date}
+          description={description}
         />
       )}
     </Container>
