@@ -14,45 +14,38 @@ const Certificate = ({ name, certId, date }) => {
 
     // Capture certificate as an image with high resolution using html2canvas
     const canvas = await html2canvas(input, {
-      scale: 4, // Increase scale to improve resolution and clarity
-      useCORS: true,
+      scale: 3, // Increased scale to improve resolution
+      useCORS: true, // Allows for external images
+      logging: true, // Helpful for debugging
     });
 
     const imgData = canvas.toDataURL("image/png");
 
     // Initialize jsPDF for landscape A4 size
-    const pdf = new jsPDF("landscape", "pt", "a4"); // Changed to mm for easier margin handling
+    const pdf = new jsPDF("landscape", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
 
-    // Define margins (in mm)
-    // const margin = 10; // 10mm margin on all sides
+    // Calculate positioning to center the image in PDF
+    const xPos = (pdfWidth - canvas.width / 3) / 2;
+    const yPos = (pdfHeight - canvas.height / 3) / 2;
 
-    // Calculate available space for the image
-    // const availableWidth = pdfWidth - 2 * margin;
-    // const availableHeight = pdfHeight - 2 * margin;
-
-    // Scale the image to fit within the PDF's dimensions while maintaining aspect ratio
-    // let imgWidth = availableWidth;
-    // let imgHeight = (canvas.height * availableWidth) / canvas.width;
-
-    // If the image height is larger than the available height, fit to available height instead
-    // if (imgHeight > availableHeight) {
-    //   imgHeight = availableHeight;
-    // }
-
-    // Calculate position to center the image
-
-    // Add the image to the PDF
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    // Add the image to the PDF at calculated position
+    pdf.addImage(
+      imgData,
+      "PNG",
+      xPos,
+      yPos,
+      canvas.width / 3,
+      canvas.height / 3
+    );
 
     // Download the generated PDF
     pdf.save("certificate.pdf");
   };
-
   return (
     <Container
-    className="
+      className="
     overall-container"
       // maxWidth="lg"
       sx={{ textAlign: "center", marginTop: "20px", marginLeft: "-120px" }}
@@ -226,7 +219,7 @@ const Certificate = ({ name, certId, date }) => {
                   />
                 </span>
                 CERTIFIED
-              </Typography >
+              </Typography>
               Certificate ID: {certId}
               <Typography
                 variant="body2"
